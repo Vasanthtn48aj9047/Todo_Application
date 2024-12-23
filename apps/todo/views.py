@@ -9,7 +9,7 @@ from django.core.mail import send_mail
 from django.db.models import Prefetch
 
 class LoginApi(NonAuthenticatedAPIMixin,AppAPIView):       
-    """LoginApiView API to authenticate a user..."""    
+    """LoginApiView API to authenticate a user.."""    
               
     def post(self, request):     
         email = request.data["username"]
@@ -24,20 +24,20 @@ class LoginApi(NonAuthenticatedAPIMixin,AppAPIView):
     
     
 class SignUpCreatePIViewViewSet(NonAuthenticatedAPIMixin,AppModelCreatePIViewSet):
-   """This SignUp API is used to sign up a user in the application...""" 
+   """This SignUp API is used to sign up a user in the application..""" 
    
    serializer_class=serializers.UserCreateSerializer
                
                
 class TaskCUDAPIViewSet(AppModelCUDAPIViewSet):
-    """This API is used to add, retrieve, update and delete tasks..."""
+    """This API is used to add, retrieve, update and delete tasks.."""
     
     serializer_class=serializers.TaskCreateSerializer
 
     def get_queryset(self):
         """
-        Override get_queryset() method provided by GenericAPIView ...
-        For filtering the task based on the logged in user and their task <pk>...
+        Override get_queryset() method provided by GenericAPIView ..
+        For filtering the task based on the logged in user and their task <pk>..
         """ 
                 
         user = self.get_user()
@@ -46,7 +46,7 @@ class TaskCUDAPIViewSet(AppModelCUDAPIViewSet):
      
     def destroy(self, request, *args, **kwargs):
         """
-            Override the destroy() .To get the Instance of the task By filtering User and PK...
+            Override the destroy() .To get the Instance of the task By filtering User and PK..
         """              
         user=self.get_user()     
         pk=kwargs.get('pk')      
@@ -54,18 +54,18 @@ class TaskCUDAPIViewSet(AppModelCUDAPIViewSet):
         if not instance:
             return self.send_error_response(data="Task not found")
         self.perform_destroy(instance)
-        return self.send_response(data="Deleted task successfully...")
+        return self.send_response(data="Deleted task successfully..")
      
     def perform_destroy(self, instance):
        """
-            Override the perform_destroy().To do a Soft Delete by setting is_Delete=True...
+            Override the perform_destroy().To do a Soft Delete by setting is_Delete=True..
        """
        instance.is_delete = True 
        instance.save()      
         
 class TaskRetrieveViewSet(AppModelRetrieveAPIViewSet):
     """
-    A TaskRetrieveViewSet that provides `retrieve` action...
+    A TaskRetrieveViewSet that provides `retrieve` action..
      
     """ 
     
@@ -73,7 +73,7 @@ class TaskRetrieveViewSet(AppModelRetrieveAPIViewSet):
     def get_queryset(self):
        """
             Override get_queryset() method provided by GenericAPIView .
-            For filtering the task based on the logged in user and their task <pk>...
+            For filtering the task based on the logged in user and their task <pk>..
        """         
        user = self.get_user()
        queryset = Task.objects.filter(user=user)
@@ -81,7 +81,7 @@ class TaskRetrieveViewSet(AppModelRetrieveAPIViewSet):
     
 class TaskListViewSet(AppModelListAPIViewSet):       
     """
-    A TaskListViewSet that provides `list` action...
+    A TaskListViewSet that provides `list` action..
     """
     
     serializer_class=serializers.TaskRetrieveSerializer 
@@ -90,7 +90,7 @@ class TaskListViewSet(AppModelListAPIViewSet):
     def get_queryset(self):
         """
             Override get_queryset() method provided by GenericAPIView .
-            For filtering the tasks based on the logged in user and their task <pk>...
+            For filtering the tasks based on the logged in user and their task <pk>..
         """                     
         user = self.get_user()
         queryset = Task.objects.filter(user=user,is_delete=False)

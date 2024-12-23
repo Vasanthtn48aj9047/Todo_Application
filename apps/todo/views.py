@@ -81,7 +81,7 @@ class TaskRetrieveViewSet(AppModelRetrieveAPIViewSet):
     
 class TaskListViewSet(AppModelListAPIViewSet):       
     """
-    A TaskListViewSet that provides `list` action..
+    A TaskListViewSet that provides `list` action...
     """
     
     serializer_class=serializers.TaskRetrieveSerializer 
